@@ -3,10 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Post;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+use App\Http\Requests\PostStoreRequest;
+use App\User;
 
 class PostController extends Controller
 {
+    public function __construnct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +21,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Auth::user()->posts;
+        return view('posts.index')->withPosts($posts);
     }
 
     /**
@@ -24,7 +32,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -33,9 +41,14 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostStoreRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $validated['user_id'] = Auth::id();
+
+        $post = Post::create($validated);
+
+        return redirect()->route('posts.index')->withMsg('Post Created:' . $post->title);
     }
 
     /**
@@ -46,7 +59,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return view('posts.show')->withPost($post);
     }
 
     /**
@@ -57,7 +70,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('posts.edit')->withPost($post);
     }
 
     /**
@@ -67,9 +80,12 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(PostStoreRequest $request, Post $post)
     {
-        //
+        $validated = $request->validated();
+        $post->update($validated);
+
+        return redirect()->route('posts.show', ['post' => $post])->withMsg('Post Updated');
     }
 
     /**
@@ -80,6 +96,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        return redirect()->route('posts.index')->withMsg('Post Deleted: ' . $post->title);
     }
 }
