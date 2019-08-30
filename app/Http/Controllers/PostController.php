@@ -9,10 +9,10 @@ use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
-    public function __construnct()
+    public function __construct()
     {
-        $this->authorizeResource(Post::class, 'post');
         $this->middleware('auth');
+        $this->authorizeResource(Post::class, 'post');
     }
     /**
      * Display a listing of the resource.
@@ -21,7 +21,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Auth::user()->posts;
+        $posts = Auth::user()->isAdmin() ? Post::all() : Auth::user()->posts;
         return view('posts.index')->withPosts($posts);
     }
 
@@ -59,6 +59,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        // $this->authorize('view', $post);
         return view('posts.show')->withPost($post);    
     }
 
