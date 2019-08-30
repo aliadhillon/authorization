@@ -11,6 +11,7 @@ class PostController extends Controller
 {
     public function __construnct()
     {
+        $this->authorizeResource(Post::class, 'post');
         $this->middleware('auth');
     }
     /**
@@ -58,7 +59,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('posts.show')->withPost($post);
+        return view('posts.show')->withPost($post);    
     }
 
     /**

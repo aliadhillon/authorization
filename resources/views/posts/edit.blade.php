@@ -6,7 +6,7 @@
         <hr>
         <form action="{{ route('posts.update', ['post' => $post]) }}" method="post">
             @csrf
-            @method('PATCH')
+            @method('PUT')
             <div class="form-group">
                 <label for="title">Title</label>
                 <input name="title" type="text" class="form-control @error('title') is-invalid @enderror" id="title" placeholder="Enter your title here" value="{{ old('title', $post->title) }}">
