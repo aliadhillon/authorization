@@ -37,7 +37,6 @@
                 <div class="links">
                     <a href="{{ route('welcome') }}">Welcome</a>
                     <a href="{{ route('blog') }}">Blog</a>
-                    <a href="{{ route('test') }}">Test</a>
                 </div>
             </div>
         </div>
