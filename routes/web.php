@@ -15,7 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::get('test', 'TestController')->name('test');
 Route::get('blog', 'BlogControler@index')->name('blog');
 
 Auth::routes(['verify' => true]);
