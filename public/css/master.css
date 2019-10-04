@@ -1,14 +1,22 @@
 html, body {
+    height: 100%;
     background-color: #fff;
     color: #636b6f;
     font-family: 'Nunito', sans-serif;
     font-weight: 200;
-    height: 100vh;
     margin: 0;
 }
 
 body {
     overflow-y: scroll;
+    display: table;
+    width: 100%; 
+}
+
+footer {
+   display: table-row;
+   height: 50px;
+   text-align: center;
 }
 
 .full-height {
@@ -54,4 +62,10 @@ body {
 
 .m-b-md {
     margin-bottom: 30px;
+}
+.red {
+    color: red;
+}
+.no-dec {
+    text-decoration: none !important;
 }

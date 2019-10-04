@@ -46,5 +46,9 @@
                 @yield('content')
             </div>
         </main>
+        <footer>
+            <hr>
+            <p>All Right Reserved. &copy; 2019. Developed by <a class="red no-dec" href="http://github.com/aliadhillon" target="_black"><strong>Ali A. Dhillon</strong></a></p>
+        </footer>
     </body>
 </html>
